@@ -1,4 +1,4 @@
-# tocode-vue-3-notes
+# vue-cli-template
 
 ## Project setup
 ```
