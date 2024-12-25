@@ -1,10 +1,11 @@
 <template>
   <div class="tags-list">
     <div 
-      @click="$emit('onItemClick', item)"
+      class="tag-item"
       v-for="item in items" 
       :key="item" 
-      class="tag-item"
+      @click="$emit('onItemClick', item)"
+      :class="{ isPreview: isPreview }"
     >
       <span>{{ item }}</span>
     </div>
@@ -17,6 +18,10 @@ export default {
     items: {
       type: Array,
       required: true
+    },
+    isPreview: {
+      type: Boolean,
+      default: false
     }
   }
 }
