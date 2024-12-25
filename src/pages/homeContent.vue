@@ -6,6 +6,7 @@
 <script>
 import NoteForm from '@/components/Notes/NoteForm.vue'
 import NoteList from '@/components/Notes/NoteList.vue';
+import { notes } from '@/seeders/notes.js'
 export default {
   components: {
     NoteForm,
@@ -13,26 +14,34 @@ export default {
   },
   data() {
     return {
-      notes: [
-        {
-          title: 'Learn Vue 3',
-          tags: ['work']
-        },
-        {
-          title: 'Finish course',
-          tags: ['work', 'home']
-        },
-        {
-          title: 'hello',
-          tags: []
-        }
-      ],
+      notes
+    }
+  },
+  mounted() {
+    this.getNotes()
+  },
+  watch: {
+    notes: {
+      handler(updatedList) {
+        localStorage.setItem('notes', JSON.stringify(updatedList))
+      },
+      deep: true
     }
   },
   methods: {
-    handlerSubmit(note) {
+    getNotes() {
+      const localNotes = localStorage.getItem('notes')
+      if (localNotes) {
+        this.notes = JSON.parse(localNotes)
+      }
+    },
+    handlerSubmit(title) {
       // this.notes.push(note)
-      this.notes.push({ title: note, tags: [] })
+      const note = {
+        title: title,
+        tags: []
+      }
+      this.notes.push(note)
     },
     handleRemove(index) {
       this.notes.splice(index, 1)
