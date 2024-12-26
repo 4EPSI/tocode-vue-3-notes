@@ -5,9 +5,13 @@
         type="text"
         required
         v-model="value"
-        placeholder="Type ur note"
+        placeholder="Type your note"
       />
-      <TagsList @onItemClick="handlerTagClick" :items="tags" />
+      <TagsList 
+        :items="tags" 
+        :isActive="activeTag" 
+        @onItemClick="setActiveTag" 
+      />
       <button class="btn btnPrimary" type="submit">Add new note</button>
     </form>
   </div>
@@ -22,21 +26,22 @@ export default {
   data() {
     return {
       value: '',
-      tags: ['home', 'work', 'travel']
+      tags: ['home', 'work', 'travel'],
+      activeTag: null
     }
   },
   methods: {
     onSubmit() {
-      this.$emit('onSubmit', this.value)
-      this.value = ''
+      const note = {
+        title: this.value,
+        tags: this.activeTag ? [this.activeTag] : []
+      };
+      this.$emit('onSubmit', note);
+      this.value = '';
+      this.activeTag = null;
     },
-    handlerTagClick(tag) {
-      console.log(tag);
-      if(this.tags.includes(tag)) {
-        this.tags = this.tags.filter(t => t !== tag)
-      } else {
-        this.tags.push(tag)
-      }
+    setActiveTag(tag) {
+      this.activeTag = this.activeTag === tag ? null : tag;
     }
   }
 }

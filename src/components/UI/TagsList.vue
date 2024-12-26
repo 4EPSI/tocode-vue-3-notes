@@ -5,7 +5,7 @@
       v-for="item in items" 
       :key="item" 
       @click="$emit('onItemClick', item)"
-      :class="{ isPreview: isPreview }"
+      :class="{ isActive: isActive === item, isPreview: isPreview }" 
     >
       <span>{{ item }}</span>
     </div>
@@ -18,6 +18,10 @@ export default {
     items: {
       type: Array,
       required: true
+    },
+    isActive: {
+      type: String,
+      default: null
     },
     isPreview: {
       type: Boolean,
