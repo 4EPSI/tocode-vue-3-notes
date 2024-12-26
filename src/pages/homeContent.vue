@@ -6,7 +6,7 @@
 <script>
 import NoteForm from '@/components/Notes/NoteForm.vue'
 import NoteList from '@/components/Notes/NoteList.vue';
-import { notes } from '@/seeders/notes.js'
+import { itemNotes } from '@/seeders/notes.js'
 export default {
   components: {
     NoteForm,
@@ -14,7 +14,7 @@ export default {
   },
   data() {
     return {
-      notes
+      notes: itemNotes
     }
   },
   mounted() {
