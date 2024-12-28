@@ -9,8 +9,8 @@
       />
       <TagsList 
         :items="tags" 
-        :isActive="activeTag" 
-        @onItemClick="setActiveTag" 
+        :isActive="activeTags" 
+        @onItemClick="toggleTag" 
       />
       <button class="btn btnPrimary" type="submit">Add new note</button>
     </form>
@@ -18,7 +18,8 @@
 </template>
 
 <script>
-import TagsList from '@/components/UI/TagsList.vue'
+import TagsList from '@/components/UI/TagsList.vue';
+
 export default {
   components: {
     TagsList
@@ -27,24 +28,28 @@ export default {
     return {
       value: '',
       tags: ['home', 'work', 'travel'],
-      activeTag: null
-    }
+      activeTags: []
+    };
   },
   methods: {
     onSubmit() {
       const note = {
         title: this.value,
-        tags: this.activeTag ? [this.activeTag] : []
+        tags: this.activeTags
       };
       this.$emit('onSubmit', note);
       this.value = '';
-      this.activeTag = null;
+      this.activeTags = [];
     },
-    setActiveTag(tag) {
-      this.activeTag = this.activeTag === tag ? null : tag;
+    toggleTag(tag) {
+      if (this.activeTags.includes(tag)) {
+        this.activeTags = this.activeTags.filter(t => t !== tag);
+      } else {
+        this.activeTags.push(tag);
+      }
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
