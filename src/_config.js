@@ -21,4 +21,9 @@ export const links = [
     alias: 'about',
     url: '/about'
   },
+  {
+    title: 'Vuex',
+    alias: 'vuex',
+    url: '/vuex'
+  }
 ];
